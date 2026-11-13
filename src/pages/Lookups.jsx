@@ -6,6 +6,12 @@ const PUBLIC_SITE = (import.meta.env.VITE_PUBLIC_URL || 'https://creasume.com').
 const LOOKUP_URL = `${PUBLIC_SITE}/instagram-lookup`
 const creatorLookupUrl = (username) => `${PUBLIC_SITE}/preview?lookup=${encodeURIComponent(username)}`
 
+function CopyIcon({ copied }) {
+  return <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    {copied ? <path d="m5 12 4 4L19 6" /> : <><rect x="8" y="8" width="12" height="12" rx="2" /><path d="M16 8V4H4v12h4" /></>}
+  </svg>
+}
+
 export default function Lookups() {
   const [rows, setRows] = useState([])
   const [count, setCount] = useState(0)
@@ -56,7 +62,7 @@ export default function Lookups() {
       <label htmlFor="main-lookup-url" style={{ display: 'block', fontWeight: 600, marginBottom: 8 }}>Main lookup URL</label>
       <div className="row items-center gap-12" style={{ flexWrap: 'wrap' }}>
         <input id="main-lookup-url" className="input" readOnly value={LOOKUP_URL} onFocus={(event) => event.target.select()} style={{ flex: 1, minWidth: 220 }} />
-        <button type="button" className="btn" onClick={() => copyLink(LOOKUP_URL)}>{copied === LOOKUP_URL ? 'Copied!' : 'Copy link'}</button>
+        <button type="button" className="btn" aria-label="Copy main lookup URL" title={copied === LOOKUP_URL ? 'Copied!' : 'Copy link'} onClick={() => copyLink(LOOKUP_URL)}><CopyIcon copied={copied === LOOKUP_URL} /></button>
         <a href={LOOKUP_URL} target="_blank" rel="noopener noreferrer">Open lookup</a>
       </div>
     </div>
@@ -75,8 +81,10 @@ export default function Lookups() {
         <td>{row.profile?.followers == null ? '-' : Number(row.profile.followers).toLocaleString()}</td>
         <td>{row.lookupCount}</td><td>{row.lastSeenAt ? new Date(row.lastSeenAt).toLocaleString() : '-'}</td>
         <td>
-          <a href={creatorLookupUrl(row.username)} target="_blank" rel="noopener noreferrer" style={{ display: 'block', maxWidth: 280, overflowWrap: 'anywhere', whiteSpace: 'normal', marginBottom: 8 }}>{creatorLookupUrl(row.username)}</a>
-          <button type="button" className="btn" aria-label={`Copy lookup link for ${row.username}`} onClick={() => copyLink(creatorLookupUrl(row.username))}>{copied === creatorLookupUrl(row.username) ? 'Copied!' : 'Copy link'}</button>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 10, flexWrap: 'nowrap', whiteSpace: 'nowrap' }}>
+            <a href={creatorLookupUrl(row.username)} target="_blank" rel="noopener noreferrer" style={{ whiteSpace: 'nowrap' }}>{creatorLookupUrl(row.username)}</a>
+            <button type="button" className="btn" style={{ flexShrink: 0, padding: 8 }} aria-label={`Copy lookup link for ${row.username}`} title={copied === creatorLookupUrl(row.username) ? 'Copied!' : 'Copy link'} onClick={() => copyLink(creatorLookupUrl(row.username))}><CopyIcon copied={copied === creatorLookupUrl(row.username)} /></button>
+          </div>
         </td>
       </tr>)}
     </tbody></table></div>
