@@ -74,12 +74,12 @@ export default function Lookups() {
       <span>{count} creators</span>
     </div>
     <div className="card table-wrap"><table className="table"><thead><tr>
-      <th>Creator</th><th>Followers</th><th>Lookups</th><th>Last lookup</th><th>Lookup URL</th>
+      <th>Creator</th><th>Followers</th><th>Last lookup</th><th>Lookup URL</th>
     </tr></thead><tbody>
-      {loading ? <tr><td colSpan={5}>Loading...</td></tr> : rows.length === 0 ? <tr><td colSpan={5}>No lookup leads found.</td></tr> : rows.map((row) => <tr key={row._id}>
+      {loading ? <tr><td colSpan={4}>Loading...</td></tr> : rows.length === 0 ? <tr><td colSpan={4}>No lookup leads found.</td></tr> : rows.map((row) => <tr key={row._id}>
         <td><strong>@{row.username}</strong><br />{row.profile?.fullName || ''}</td>
         <td>{row.profile?.followers == null ? '-' : Number(row.profile.followers).toLocaleString()}</td>
-        <td>{row.lookupCount}</td><td>{row.lastSeenAt ? new Date(row.lastSeenAt).toLocaleString() : '-'}</td>
+        <td>{row.lastSeenAt ? new Date(row.lastSeenAt).toLocaleString() : '-'}</td>
         <td>
           <div style={{ display: 'flex', alignItems: 'center', gap: 10, flexWrap: 'nowrap', whiteSpace: 'nowrap' }}>
             <a href={creatorLookupUrl(row.username)} target="_blank" rel="noopener noreferrer" style={{ whiteSpace: 'nowrap' }}>{creatorLookupUrl(row.username)}</a>
