@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { api } from '../services/api.js'
-import { downloadCreatorWorkbook } from '../services/creatorWorkbook.js'
+import LookupGoogleSheet from '../components/LookupGoogleSheet.jsx'
 
 const PUBLIC_SITE = (import.meta.env.VITE_PUBLIC_URL || 'https://creasume.com').replace(/\/+$/, '')
 const LOOKUP_URL = `${PUBLIC_SITE}/instagram-lookup`
@@ -19,7 +19,6 @@ export default function Lookups() {
   const [search, setSearch] = useState('')
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
-  const [exporting, setExporting] = useState(false)
   const [refresh, setRefresh] = useState(0)
   const [copied, setCopied] = useState('')
 
@@ -44,20 +43,10 @@ export default function Lookups() {
     return () => { active = false }
   }, [page, search, refresh])
 
-  async function exportAll() {
-    setExporting(true)
-    setError('')
-    try {
-      const res = await api.exportLookups()
-      downloadCreatorWorkbook((res.data || []).map((row) => ({ ...row.profile, ...row, username: row.username })))
-    } catch (e) { setError(e.message || 'Export failed') }
-    finally { setExporting(false) }
-  }
-
   return <div>
     <div className="page-head"><div><h1>Lookup leads</h1><p>Public creator details collected when usernames are looked up. Available to your team only.</p></div>
-      <button className="btn btn-primary" onClick={exportAll} disabled={exporting}>{exporting ? 'Exporting...' : 'Download all (Excel)'}</button>
     </div>
+    <LookupGoogleSheet />
     <div className="card" style={{ padding: 16, marginBottom: 20 }}>
       <label htmlFor="main-lookup-url" style={{ display: 'block', fontWeight: 600, marginBottom: 8 }}>Main lookup URL</label>
       <div className="row items-center gap-12" style={{ flexWrap: 'wrap' }}>
