@@ -11,6 +11,7 @@ import Benchmark from './pages/Benchmark.jsx'
 import Referrals from './pages/Referrals.jsx'
 import Landing from './pages/Landing.jsx'
 import Settings from './pages/Settings.jsx'
+import Lookups from './pages/Lookups.jsx'
 
 export default function App() {
   return (
@@ -28,6 +29,7 @@ export default function App() {
         <Route path="creators" element={<Creators />} />
         <Route path="creators/:id" element={<CreatorDetail />} />
         <Route path="enquiries" element={<Enquiries />} />
+        <Route path="lookups" element={<Lookups />} />
         <Route path="payments" element={<Payments />} />
         <Route path="benchmark" element={<Benchmark />} />
         <Route path="referrals" element={<Referrals />} />

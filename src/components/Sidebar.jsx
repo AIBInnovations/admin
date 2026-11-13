@@ -1,6 +1,7 @@
 import { NavLink } from 'react-router-dom'
 
 const NAV = [
+  { to: '/lookups', label: 'Lookup leads', icon: '@' },
   { to: '/', label: 'Overview', icon: '◧', end: true },
   { to: '/creators', label: 'Creators', icon: '◎' },
   { to: '/enquiries', label: 'Enquiries', icon: '✉' },

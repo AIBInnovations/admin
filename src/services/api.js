@@ -61,6 +61,8 @@ async function uploadFile(path, file) {
 }
 
 export const api = {
+  lookups: (params = {}) => get(`/admin/lookups${qs(params)}`),
+  exportLookups: () => get('/admin/lookups/export'),
   // Auth
   login: (email, password) => post('/admin/auth/login', { email, password }),
   me: () => get('/admin/auth/me'),

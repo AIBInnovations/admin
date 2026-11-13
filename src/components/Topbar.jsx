@@ -4,6 +4,7 @@ import { useAuth } from '../context/AuthContext.jsx'
 
 // First path segment → page title shown in the topbar.
 const TITLES = {
+  lookups: 'Lookup leads',
   '': 'Overview',
   creators: 'Creators',
   enquiries: 'Enquiries',
