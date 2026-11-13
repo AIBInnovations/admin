@@ -68,14 +68,12 @@ export default function Lookups() {
       <span>{count} creators</span>
     </div>
     <div className="card table-wrap"><table className="table"><thead><tr>
-      <th>Creator</th><th>Followers</th><th>Lookups</th><th>Last lookup</th><th>Status</th><th>Creator URL</th><th>Lookup URL</th>
+      <th>Creator</th><th>Followers</th><th>Lookups</th><th>Last lookup</th><th>Lookup URL</th>
     </tr></thead><tbody>
-      {loading ? <tr><td colSpan={7}>Loading...</td></tr> : rows.length === 0 ? <tr><td colSpan={7}>No lookup leads found.</td></tr> : rows.map((row) => <tr key={row._id}>
+      {loading ? <tr><td colSpan={5}>Loading...</td></tr> : rows.length === 0 ? <tr><td colSpan={5}>No lookup leads found.</td></tr> : rows.map((row) => <tr key={row._id}>
         <td><strong>@{row.username}</strong><br />{row.profile?.fullName || ''}</td>
         <td>{row.profile?.followers == null ? '-' : Number(row.profile.followers).toLocaleString()}</td>
         <td>{row.lookupCount}</td><td>{row.lastSeenAt ? new Date(row.lastSeenAt).toLocaleString() : '-'}</td>
-        <td>{row.lastStatus}{row.stale ? ' (stale cache)' : ''}</td>
-        <td><a href={row.instagramUrl} target="_blank" rel="noopener noreferrer">Instagram profile</a></td>
         <td>
           <a href={creatorLookupUrl(row.username)} target="_blank" rel="noopener noreferrer" style={{ display: 'block', maxWidth: 280, overflowWrap: 'anywhere', whiteSpace: 'normal', marginBottom: 8 }}>{creatorLookupUrl(row.username)}</a>
           <button type="button" className="btn" aria-label={`Copy lookup link for ${row.username}`} onClick={() => copyLink(creatorLookupUrl(row.username))}>{copied === creatorLookupUrl(row.username) ? 'Copied!' : 'Copy link'}</button>
