@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { api } from '../services/api.js'
+import { LOOKUP_SHEET_URL } from '../components/LookupGoogleSheet.jsx'
 
 const PUBLIC_SITE = (import.meta.env.VITE_PUBLIC_URL || 'https://creasume.com').replace(/\/+$/, '')
 const LOOKUP_URL = `${PUBLIC_SITE}/instagram-lookup`
@@ -44,6 +45,7 @@ export default function Lookups() {
 
   return <div>
     <div className="page-head"><div><h1>Lookup leads</h1><p>Public creator details collected when usernames are looked up. Available to your team only.</p></div>
+      <a className="btn btn-primary" href={LOOKUP_SHEET_URL} target="_blank" rel="noopener noreferrer">Open Sheet</a>
     </div>
     <div className="card" style={{ padding: 16, marginBottom: 20 }}>
       <label htmlFor="main-lookup-url" style={{ display: 'block', fontWeight: 600, marginBottom: 8 }}>Main lookup URL</label>
