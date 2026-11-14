@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { api } from '../services/api.js'
 import { useAuth } from '../context/AuthContext.jsx'
 import { getAppearance, setAppearance, THEMES, ACCENTS } from '../theme.js'
+import LookupGoogleSheet from '../components/LookupGoogleSheet.jsx'
 
 const PLAN_TIERS = ['free', 'starter', 'pro', 'elite']
 
@@ -103,6 +104,8 @@ export default function Settings() {
           <p className="muted text-sm" style={{ margin: 0 }}>Manage your account, the site, and how the admin looks.</p>
         </div>
       </div>
+
+      <LookupGoogleSheet />
 
       <div style={{ display: 'grid', gap: 20, gridTemplateColumns: 'repeat(auto-fit, minmax(340px, 1fr))', alignItems: 'start' }}>
 
