@@ -15,15 +15,15 @@ export function createCreatorWorkbook(profiles, origin = '') {
     'Username', 'Name', 'Instagram URL', 'Media kit preview URL', 'Bio',
     'Followers', 'Following', 'Posts',
     'Estimated engagement rate (%)', 'Fetched at',
-    'First looked up', 'Last looked up', 'Last lookup status', 'Last lookup error',
+    'First looked up', 'Last looked up',
   ], ...profiles.filter((p) => !p.isSampleFallback).map((p) => [
     p.username, p.fullName, `https://www.instagram.com/${encodeURIComponent(p.username)}/`,
     `${origin}/preview?lookup=${encodeURIComponent(p.username)}`, p.bio,
     p.followers, p.following, p.posts,
     p.engagementRateEstimate, p.fetchedAt,
-    p.firstSeenAt, p.lastSeenAt, p.lastStatus, p.lastError,
+    p.firstSeenAt, p.lastSeenAt,
   ])]
-  const sheet = `<?xml version="1.0" encoding="UTF-8"?><worksheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main"><sheetData>${rows.map((row, r) => `<row r="${r + 1}">${row.map((value, c) => `<c r="${column(c)}${r + 1}" ${typeof value === 'number' && Number.isFinite(value) ? `t="n"><v>${value}</v>` : `t="inlineStr"><is><t xml:space="preserve">${xml(value)}</t></is>`}</c>`).join('')}</row>`).join('')}</sheetData><autoFilter ref="A1:N${rows.length}"/></worksheet>`
+  const sheet = `<?xml version="1.0" encoding="UTF-8"?><worksheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main"><sheetData>${rows.map((row, r) => `<row r="${r + 1}">${row.map((value, c) => `<c r="${column(c)}${r + 1}" ${typeof value === 'number' && Number.isFinite(value) ? `t="n"><v>${value}</v>` : `t="inlineStr"><is><t xml:space="preserve">${xml(value)}</t></is>`}</c>`).join('')}</row>`).join('')}</sheetData><autoFilter ref="A1:L${rows.length}"/></worksheet>`
   const files = {
     '[Content_Types].xml': '<?xml version="1.0"?><Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types"><Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/><Default Extension="xml" ContentType="application/xml"/><Override PartName="/xl/workbook.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet.main+xml"/><Override PartName="/xl/worksheets/sheet1.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.worksheet+xml"/></Types>',
     '_rels/.rels': '<?xml version="1.0"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="xl/workbook.xml"/></Relationships>',
