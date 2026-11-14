@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { api } from '../services/api.js'
 
-export const LOOKUP_SHEET_URL = 'https://docs.google.com/spreadsheets/d/1UEQWQwxi__qgAkcp_rKT3EfPmVtd-bJHo1T0azX3g_4/edit'
+export const LOOKUP_SHEET_URL = 'https://docs.google.com/spreadsheets/d/1nWI_JyMORbKQROvZ5oupSGKn0xV-lcEkmhVSxBGwTrQ/edit'
 
 export default function LookupGoogleSheet() {
   const [status, setStatus] = useState(null)
